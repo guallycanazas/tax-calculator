@@ -3,23 +3,31 @@ kind: Task
 metadata:
   name: npm
 spec:
+  description: Install Tax Calculator Node.js dependencies with npm.
   workspaces:
     - name: source
+      description: Workspace containing the cloned tax-calculator repository.
   steps:
     - name: npm-install
-      image: node:lts
+      image: node:18
       workingDir: $(workspaces.source.path)
-      command: ["npm", "install"]
+      script: |
+        #!/usr/bin/env sh
+        npm install
 ---
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: jasmine
 spec:
+  description: Run Jasmine unit tests for the Tax Calculator application.
   workspaces:
     - name: source
+      description: Workspace containing the application source code.
   steps:
-    - name: jasmine-test
-      image: node:lts
+    - name: jasmine-tests
+      image: node:18
       workingDir: $(workspaces.source.path)
-      command: ["npx", "jasmine"]
+      script: |
+        #!/usr/bin/env sh
+        npx jasmine
