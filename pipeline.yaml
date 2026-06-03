@@ -1,16 +1,18 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: cd-pipeline
+  name: tax-calculator-pipeline
 spec:
   params:
     - name: repo-url
       type: string
+      description: Public GitHub repository URL for the Tax Calculator application.
     - name: branch
       type: string
-      default: "main"
+      default: main
     - name: build-image
       type: string
+      description: IBM Cloud Container Registry image to build and push.
   workspaces:
     - name: pipeline-workspace
   tasks:
